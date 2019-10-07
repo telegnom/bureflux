@@ -1,0 +1,48 @@
+{% extends "main.html" %} {% block content %}
+<h2>
+  Erstelle einen Account
+</h2>
+<p>
+  Nachdem du das Formular ausgefüllst hast, bekommst du einen Link per E-Mail
+  zugeschickt. Dieser Link ist für dich persönlich und darf nicht weiter gegen
+  werden, denn wer im Besitz des Links ist, kann auf deine Daten zugreifen.
+</p>
+<form action="" method="POST" novalidate autocomplete="off">
+  {{ form.hidden_tag() }}
+  <p>
+    {% for error in form.nickname.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.nickname.label }} <br />
+    {{ form.nickname(size=64) }}
+  </p>
+  <p>
+    {% for error in form.email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.email.label }} <br />
+    {{ form.email(size=64) }}
+  </p>
+  <p>
+    {% for error in form.repeat_email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.repeat_email.label }} <br />
+    {{ form.repeat_email(size=64) }}
+  </p>
+  <p>
+    {% for error in form.event_password.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.event_password.label }} <br />
+    {{ form.event_password(size=64) }}
+  </p>
+  <p>
+    {{ form.submit() }}
+  </p>
+</form>
+{% endblock %}

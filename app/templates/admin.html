@@ -1,0 +1,24 @@
+{% extends "main.html" %} {% block content %}
+
+<h2>
+  Request List
+</h2>
+{% if voucher_requests %}
+<table>
+  {% for request in voucher_requests %}
+  <tr>
+    <td>{{ request.id }}</td>
+    <td>{{ request.email }}</td>
+    <td>{{ request.nickname }}</td>
+    <td>{{ request.request_type }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endif %}
+
+<hr />
+
+<a href="{{ url_for('logout') }}">Logout</a>
+
+{% endblock content %}

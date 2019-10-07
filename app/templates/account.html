@@ -1,0 +1,73 @@
+{% extends "main.html" %} {% block content %}
+<h2>
+  Welcome, <em>{{ account.nickname }} </em>!
+</h2>
+
+{% if voucher_requests %}
+<table>
+  {% for voucher_request in voucher_requests %}
+  <tr>
+    <td>{{ voucher_request.nickname }}</td>
+    <td>{{ voucher_request.email }}</td>
+    <td>{{ voucher_request.request_type }}</td>
+    <td>{{ voucher_request.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    <td>
+      <a
+        href="/account/{{ account.id }}/request/{{ voucher_request.id }}/delete"
+        >delete</a
+      >
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %} You didn't request any voucher yet. Request your voucher with the
+form below. {%endif%}
+
+<h3>Request voucher</h3>
+<form action="" method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {% for error in form.nickname.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.nickname.label }} <br />
+    {{ form.nickname(size=64) }}
+  </p>
+  <p>
+    {% for error in form.request_type.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.request_type.label }} <br />
+    {{ form.request_type() }}
+  </p>
+  <p>
+    {% for error in form.email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.email.label }}
+    <br />
+    {{ form.email(size=64) }}
+    <br />
+    <small>
+      This is the address we'll mail your voucher to, once you got one. So
+      please doublecheck that it is correct!
+    </small>
+  </p>
+  <p>
+    {% for error in form.repeat_email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+    {{ form.repeat_email.label }} <br />
+    {{ form.repeat_email(size=64) }}
+  </p>
+  <p>
+    {{ form.submit() }}
+  </p>
+</form>
+
+{% endblock content %}
